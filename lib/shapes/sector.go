@@ -6,9 +6,9 @@ package shapes
 import (
 	"math"
 
+	. "github.com/0daryo/ghostscad/lib/degmath"
+	. "github.com/0daryo/ghostscad/primitive"
 	. "github.com/go-gl/mathgl/mgl64"
-	. "github.com/ljanyst/ghostscad/lib/degmath"
-	. "github.com/ljanyst/ghostscad/primitive"
 )
 
 type Sector struct {

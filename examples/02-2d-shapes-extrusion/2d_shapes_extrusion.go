@@ -1,9 +1,9 @@
 package main
 
 import (
+	. "github.com/0daryo/ghostscad/primitive"
+	"github.com/0daryo/ghostscad/sys"
 	. "github.com/go-gl/mathgl/mgl64"
-	. "github.com/ljanyst/ghostscad/primitive"
-	"github.com/ljanyst/ghostscad/sys"
 )
 
 func newSerpentine() Primitive {
