@@ -173,6 +173,22 @@ func RenderOne(shape Primitive) {
 	render(shape, computeOutputName("main"))
 }
 
+// Render a single shape in a way depending on commandline parameters
+func RenderOneWithFileName(fileName string, shape Primitive) {
+	Initialize()
+
+	if *listShapes {
+		fmt.Println("main (default)")
+		return
+	}
+
+	if *shapeSel != "" && *shapeSel != "main" {
+		log.Fatalf("No such shape: %q\n", *shapeSel)
+	}
+
+	render(shape, computeOutputName(fileName))
+}
+
 // Render the shapes from the list in a way depending on commandline parameters
 func RenderMultiple(shapes []Shape) {
 	Initialize()
