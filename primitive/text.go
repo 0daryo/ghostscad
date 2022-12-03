@@ -11,16 +11,16 @@ import (
 type Text struct {
 	ParentImpl
 	Text      string
-	Size      uint16 "optional"
-	Font      string "optional"
-	Halign    string "optional"
-	Valign    string "optional"
-	Spacing   uint16 "optional"
-	Direction string "optional"
-	Language  string "optional"
-	Script    string "optional"
-	Fn        uint16 "optional"
-	prefix    string "prefix"
+	Size      uint16  "optional"
+	Font      string  "optional"
+	Halign    string  "optional"
+	Valign    string  "optional"
+	Spacing   float64 "optional"
+	Direction string  "optional"
+	Language  string  "optional"
+	Script    string  "optional"
+	Fn        uint16  "optional"
+	prefix    string  "prefix"
 }
 
 func NewText(text string) *Text {
@@ -44,7 +44,7 @@ func (o *Text) Render(w *bufio.Writer) {
 	w.WriteString(fmt.Sprintf(", font=%q", o.Font))
 	w.WriteString(fmt.Sprintf(", halign=%q", o.Halign))
 	w.WriteString(fmt.Sprintf(", valign=%q", o.Valign))
-	w.WriteString(fmt.Sprintf(", spacing=%d", o.Spacing))
+	w.WriteString(fmt.Sprintf(", spacing=%.6f", o.Spacing))
 	w.WriteString(fmt.Sprintf(", direction=%q", o.Direction))
 	w.WriteString(fmt.Sprintf(", language=%q", o.Language))
 	w.WriteString(fmt.Sprintf(", script=%q", o.Script))

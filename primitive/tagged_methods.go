@@ -2,8 +2,6 @@
 
 package primitive
 
-import ()
-
 func (o *Cube) SetCenter(val bool) *Cube {
 	o.Center = val
 	return o
@@ -139,7 +137,7 @@ func (o *Text) SetValign(val string) *Text {
 	return o
 }
 
-func (o *Text) SetSpacing(val uint16) *Text {
+func (o *Text) SetSpacing(val float64) *Text {
 	o.Spacing = val
 	return o
 }
