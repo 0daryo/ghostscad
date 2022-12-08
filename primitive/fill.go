@@ -14,6 +14,8 @@ type Fill struct {
 	Import Import
 }
 
+var _ Primitive = &Fill{}
+
 func NewFill(resize Vec3, auto bool, import_ Import) *Fill {
 	return &Fill{
 		Resize: resize,
@@ -27,3 +29,11 @@ func (o *Fill) Render(w *bufio.Writer) {
 	o.Import.Render(w)
 	w.WriteString("}}\n")
 }
+
+func (o *Fill) SetParent(Primitive)
+func (o *Fill) Parent() Primitive
+func (o *Fill) Disable() Primitive
+func (o *Fill) Highlight() Primitive
+func (o *Fill) ShowOnly() Primitive
+func (o *Fill) Transparent() Primitive
+func (o *Fill) Prefix() string
