@@ -30,10 +30,24 @@ func (o *Fill) Render(w *bufio.Writer) {
 	w.WriteString("}}\n")
 }
 
-func (o *Fill) SetParent(Primitive)
-func (o *Fill) Parent() Primitive
-func (o *Fill) Disable() Primitive
-func (o *Fill) Highlight() Primitive
-func (o *Fill) ShowOnly() Primitive
-func (o *Fill) Transparent() Primitive
-func (o *Fill) Prefix() string
+func (o *Fill) SetParent(Primitive) {
+	return
+}
+func (o *Fill) Parent() Primitive {
+	return o
+}
+func (o *Fill) Disable() Primitive {
+	return o
+}
+func (o *Fill) Highlight() Primitive {
+	return o
+}
+func (o *Fill) ShowOnly() Primitive {
+	return o
+}
+func (o *Fill) Transparent() Primitive {
+	return o
+}
+func (o *Fill) Prefix() string {
+	return ""
+}
