@@ -9,25 +9,24 @@ import (
 
 type Fill struct {
 	ParentImpl
-	Resize Vec3
-	Auto   bool
-	Import Import
+	Items *List "forward:Add"
 }
 
 var _ Primitive = &Fill{}
 
-func NewFill(resize Vec3, auto bool, import_ Import) *Fill {
-	return &Fill{
-		Resize: resize,
-		Auto:   auto,
-		Import: import_,
+func NewFill(items ...Primitive) *Fill {
+	ret := &Fill{
+		Items: NewList(),
 	}
+	ret.Items.SetParent(ret)
+	ret.Items.Add(items...)
+	return ret
 }
 
 func (o *Fill) Render(w *bufio.Writer) {
-	w.WriteString(fmt.Sprintf("fill(){resize([%f, %f,%f],auth=%t){\n", o.Resize[0], o.Resize[1], o.Resize[2], o.Auto))
-	o.Import.Render(w)
-	w.WriteString("}}\n")
+	w.WriteString(fmt.Sprintf("fill("))
+	w.WriteString(fmt.Sprintf(")"))
+	o.Items.Render(w)
 }
 
 func (o *Fill) SetParent(Primitive) {
@@ -49,5 +48,56 @@ func (o *Fill) Transparent() Primitive {
 	return o
 }
 func (o *Fill) Prefix() string {
+	return ""
+}
+
+type Resize struct {
+	ParentImpl
+	Auto  bool
+	Dims  Vec3
+	Items *List "forward:Add"
+}
+
+var _ Primitive = &Resize{}
+
+func NewResize(Auto bool, vec Vec3, items ...Primitive) *Resize {
+	ret := &Resize{
+		Auto:  Auto,
+		Dims:  vec,
+		Items: NewList(),
+	}
+	ret.Items.SetParent(ret)
+	ret.Items.Add(items...)
+	return ret
+}
+
+func (o *Resize) Render(w *bufio.Writer) {
+	w.WriteString(fmt.Sprintf("resize(\n"))
+	w.WriteString(
+		fmt.Sprintf("\t[%f, %f, %f], auto=%t\n", o.Dims[0], o.Dims[1], o.Dims[2], o.Auto),
+	)
+	w.WriteString(fmt.Sprintf(")"))
+	o.Items.Render(w)
+}
+
+func (o *Resize) SetParent(Primitive) {
+	return
+}
+func (o *Resize) Parent() Primitive {
+	return o
+}
+func (o *Resize) Disable() Primitive {
+	return o
+}
+func (o *Resize) Highlight() Primitive {
+	return o
+}
+func (o *Resize) ShowOnly() Primitive {
+	return o
+}
+func (o *Resize) Transparent() Primitive {
+	return o
+}
+func (o *Resize) Prefix() string {
 	return ""
 }

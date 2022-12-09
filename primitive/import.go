@@ -13,6 +13,7 @@ type Import struct {
 	File      string
 	Convexity int    "optional"
 	Layer     string "optional"
+	Center    bool   "optional"
 	prefix    string "prefix"
 }
 
@@ -35,5 +36,13 @@ func (o *Import) Render(w *bufio.Writer) {
 	if o.Layer != "" {
 		w.WriteString(fmt.Sprintf(", layer=%q", o.Layer))
 	}
+	if o.Center {
+		w.WriteString(fmt.Sprintf(", center=%t", o.Center))
+	}
 	w.WriteString(");\n")
+}
+
+func (o *Import) SetCenter(val bool) *Import {
+	o.Center = val
+	return o
 }
