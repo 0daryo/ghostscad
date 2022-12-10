@@ -36,16 +36,39 @@ func NewLinearExtrusion(height float64, items ...Primitive) *LinearExtrusion {
 	return ret
 }
 
+func NewZeroLinearExtrusion(height float64, items ...Primitive) *LinearExtrusion {
+	ret := &LinearExtrusion{
+		Height: height,
+		Scale:  1.0,
+		Items:  NewList(),
+	}
+	ret.Items.SetParent(ret)
+	ret.Items.Add(items...)
+	return ret
+}
+
 func (o *LinearExtrusion) Render(w *bufio.Writer) {
 	w.WriteString(o.Prefix())
 	w.WriteString("linear_extrude(")
 	w.WriteString(fmt.Sprintf("height=%f", o.Height))
-	w.WriteString(fmt.Sprintf(", center=%t", o.Center))
-	w.WriteString(fmt.Sprintf(", convexity=%d", o.Convexity))
-	w.WriteString(fmt.Sprintf(", twist=%d", o.Twist))
-	w.WriteString(fmt.Sprintf(", slices=%d", o.Slices))
-	w.WriteString(fmt.Sprintf(", scale=%f", o.Scale))
-	w.WriteString(fmt.Sprintf(", $fn=%d", o.Fn))
+	if o.Center {
+		w.WriteString(fmt.Sprintf(", center=%t", o.Center))
+	}
+	if o.Convexity > 0 {
+		w.WriteString(fmt.Sprintf(", convexity=%d", o.Convexity))
+	}
+	if o.Twist > 0 {
+		w.WriteString(fmt.Sprintf(", twist=%d", o.Twist))
+	}
+	if o.Slices > 0 {
+		w.WriteString(fmt.Sprintf(", slices=%d", o.Slices))
+	}
+	if o.Scale != 1.0 {
+		w.WriteString(fmt.Sprintf(", scale=%f", o.Scale))
+	}
+	if o.Fn > 0 {
+		w.WriteString(fmt.Sprintf(", $fn=%d", o.Fn))
+	}
 	w.WriteString(")")
 	o.Items.Render(w)
 }
